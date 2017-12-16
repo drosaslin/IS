@@ -4,7 +4,7 @@
   <head>
     <title>~Chat Room~</title>
     <meta charset="UTF-16"/>
-<style type="text/css">
+      <style type="text/css">
         body {
           background-color: #fff;
           text-align: center;
@@ -62,7 +62,7 @@
         }
 
       </style>
-
+        <script src='https://www.google.com/recaptcha/api.js'></script>
   </head>
 
   <body>
@@ -70,7 +70,8 @@
       <p class= "welcome-msg"> Welcome to our chat room! </p>
       <form action="ChatRoom/includes/checkInfo.php" method="POST">
         <input type="text" name="uid" placeholder="Username"><br>
-        <input type="password" name="pwd" placeholder="Password"><br>
+        <input type="password" name="pwd" placeholder="Password"><br><br>
+        <div class="g-recaptcha" data-sitekey="6LfXUD0UAAAAAPW6lAXFnn-owca962PSDrBnRsAA"></div>
         <button type="submit" name="submit">Sign in</button>
       </form>
       <p>Don't have an account?

@@ -15,7 +15,7 @@
       while($row = mysqli_fetch_assoc($result))
       {
         //echo $row['user_uid'] . "<br>";
-        if($row['user_uid'] == $uid && $row['user_pwd'] == $pass)
+        if($row['user_uid'] == $uid && $row['user_pwd'] == $pass && isset($_POST['g-recaptcha-response'])&& $_POST['g-recaptcha-response'])
         {
           session_start();
           $_SESSION["uid"] = $_POST["uid"];
