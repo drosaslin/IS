@@ -18,7 +18,12 @@
         if($row['user_uid'] == $uid && $row['user_pwd'] == $pass && isset($_POST['g-recaptcha-response'])&& $_POST['g-recaptcha-response'])
         {
           session_start();
+          $secret = "6LfXUD0UAAAAAGJcwCp_pmSCG8RyPz6bruv-M-7u";
+          $ip = $_SERVER['REMOTE_ADDR'];
           $_SESSION["uid"] = $_POST["uid"];
+          $captcha = $_POST['g-recaptcha-response'];
+          $rsp = file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=$secret&response=$captcha&remoteip=$ip");
+
           header("location: ../ChatRoom.php");
           $flag = true;
         }
