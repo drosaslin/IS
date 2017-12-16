@@ -32,7 +32,7 @@ if(ISSET($_POST['message']))
 echo '<html>';
 echo '<head></head><body>';
 echo '<form action="NewMessages.php" method="POST">';
-echo '<input type="text" name="message"/>';
+echo '<input type="text" name="message"/><br><br>';
 //echo '<textarea name="message" row="3" cols"50"></textarea>';
 echo '<input type="submit" value="Send"/>';
 echo '<input type="reset" value="Reset"/>';

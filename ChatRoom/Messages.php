@@ -24,7 +24,11 @@
 
     /*fetch associative array*/
     while($row =mysqli_fetch_row($result)){
-      echo $row[3]." says: ".$row[1].'</br>';
+      echo "<p style='color: #E196A2;
+      font-size: 15px;
+      font-family: Helvetica;
+      font-weight: bold;
+      margin:0;'>".$row[3]." says: ".$row[1].'</p>';
     }
 
     /*free result set*/
