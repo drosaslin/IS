@@ -17,7 +17,9 @@
         //echo $row['user_uid'] . "<br>";
         if($row['user_uid'] == $uid && $row['user_pwd'] == $pass)
         {
-          echo "Successfully signed in!";
+          session_start();
+          $_SESSION["uid"] = $_POST["uid"];
+          header("location: ../ChatRoom.php");
           $flag = true;
         }
         if($flag == true) break;
