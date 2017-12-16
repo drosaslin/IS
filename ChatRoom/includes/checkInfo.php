@@ -26,19 +26,53 @@
       }
     }
     if($flag == false)
-      echo "Connection unsuccessful =(";
+      echo "<p style='color: #E196A2;
+      font-size: 30px;
+      font-family: Helvetica;
+      font-weight: bold;
+      margin: 20px;'> Connection unsuccessful :(</p>";
   }
   else
-    echo "Information not provided!";
+    echo "<p style='color: #E196A2;
+    font-size: 30px;
+    font-family: Helvetica;
+    font-weight: bold;
+    margin: 20px;'> Information not provided!</p>";
 ?>
 
 <!DOCTYPE html>
 <html>
   <head>
     <meta charset="utf-8">
-    <title></title>
+    <title>Connection Unsuccessful</title>
+    <style type="text/css">
+            body {
+              background-color: #fff;
+              text-align: center;
+            }
+
+            html{
+              margin: auto;
+            }
+
+
+            p{
+              font-family: helvetica;
+              font-size: 10px;
+            }
+
+            a:link, a:visited{
+              font-size: 15px;
+              color:#74B496;
+              font-weight: bold;
+              text-decoration: none;
+            }
+
+          </style>
   </head>
   <body>
-    <a href = "..\..\index.php"><p style="font-size:20px">Go back</p></a>
+    <center>
+    <a href = "..\..\index.php"><p style="font-size:20px">Click to go back</p></a>
+  </center>
   </body>
 </html>

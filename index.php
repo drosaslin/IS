@@ -51,6 +51,12 @@
           width: auto;
         }
 
+        a:link, a:visited{
+          color:#74B496;
+          font-weight: bold;
+          text-decoration: none;
+        }
+
       </style>
 
   </head>
