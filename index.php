@@ -38,8 +38,9 @@
 
         .welcome-msg{
           color: #74B496;
-          font-size: 25px;
+          font-size: 30px;
           font-family: Helvetica;
+          font-weight: bold;
           font-style: oblique;
         }
 
