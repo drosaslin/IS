@@ -51,6 +51,10 @@
           width: auto;
         }
 
+        input:focus{
+          outline: none;
+        }
+
         a:link, a:visited{
           color:#74B496;
           font-weight: bold;

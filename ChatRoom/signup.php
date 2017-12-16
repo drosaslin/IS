@@ -50,6 +50,10 @@
               width: auto;
             }
 
+            input:focus{
+              outline: none;
+            }
+
           </style>
 
   </head>
