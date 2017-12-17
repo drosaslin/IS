@@ -55,7 +55,7 @@
             }
 
           </style>
-
+          <script src='https://www.google.com/recaptcha/api.js'></script>
   </head>
 
   <body>
@@ -68,6 +68,7 @@
         <input type="text" name="uid" placeholder="Username"><br>
         <input type="password" name="pwd" id="pwd" placeholder="Password"><br>
         <progress max="100" value="0" id="strength" style="width: 160px; height: 10px"></progress><br>
+        <div class="g-recaptcha" data-sitekey="6LfXUD0UAAAAAPW6lAXFnn-owca962PSDrBnRsAA" style="transform:scale(0.77);"></div>
         <button type="submit" name="submit">Submit</button>
       </form>
     </center>
