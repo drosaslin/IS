@@ -10,8 +10,8 @@
   include_once ("includes/dbms.php");
 
   /*$link = mysql_connect('localhost', 'IMuser', 'IMuser');*/
-  if (!$conn) { die('Could not connect: ' . mysql_error()); }
-  else {/*echo 'AAA';*/}
+  if (!$conn)
+    die('Could not connect: ' . mysql_error());
 
   //query the database
   $query = "SELECT * FROM messages";
