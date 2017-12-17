@@ -12,9 +12,10 @@
   font-style:italic
   margin:0;'>" .$_SESSION['uid']. "</p>";
 ?>
+
 <html>
   <head>
-      <style>
+      <style type="text/css">
       button{
         margin: 20px auto;
         background: #C8E77B;
@@ -38,11 +39,10 @@
       </style>
   </head>
   <body>
-
-    <a href="../index.php" target="_parent">
       <div class="wrapper">
-      <button>Sign out</button>
+        <form action="ChatRoom.php" method="POST">
+          <button type="submit" name="signout">Sign out</button>
+        </form>
     </div>
-    </a>
   </body>
 </html>
