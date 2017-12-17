@@ -43,6 +43,8 @@
     font-family: Helvetica;
     font-weight: bold;
     margin: 20px;'> Information not provided!</p>";
+
+    mysqli_close($conn);
 ?>
 
 <!DOCTYPE html>

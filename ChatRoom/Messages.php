@@ -7,20 +7,16 @@
   //this is where the messages from the server will go!
 
   //connect to database
-  $dbServerName = 'localhost';
-  $dbUserName = 'root';
-  $dbPassword = '';
-  $dbName = 'loginsystem';
-  $link = mysqli_connect($dbServerName, $dbUserName, $dbPassword,$dbName);
+  include_once ("includes/dbms.php");
 
   /*$link = mysql_connect('localhost', 'IMuser', 'IMuser');*/
-  if (!$link) { die('Could not connect: ' . mysql_error()); }
+  if (!$conn) { die('Could not connect: ' . mysql_error()); }
   else {/*echo 'AAA';*/}
 
   //query the database
   $query = "SELECT * FROM messages";
 
-  if($result=mysqli_query($link,$query)){
+  if($result=mysqli_query($conn,$query)){
 
     /*fetch associative array*/
     while($row =mysqli_fetch_row($result)){
@@ -36,7 +32,7 @@
   }
 
   /*close connection*/
-  mysqli_close($link);
+  mysqli_close($conn);
 
   ?>
 </body>

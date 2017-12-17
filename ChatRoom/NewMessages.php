@@ -3,29 +3,25 @@ session_start();
 if(ISSET($_POST['message']))
 {
   //connect to database
-  $dbServerName = 'localhost';
-  $dbUserName = 'root';
-  $dbPassword = '';
-  $dbName = 'loginsystem';
-  $link = mysqli_connect($dbServerName, $dbUserName, $dbPassword,$dbName);
+  include_once ("includes/dbms.php");
 
   /*$link = mysql_connect('localhost', 'IMuser', 'IMuser');*/
-  if (!$link) { die('Could not connect: ' . mysql_error()); }
+  if (!$conn) { die('Could not connect: ' . mysql_error()); }
   else {/*echo 'AAA';*/}
 
-  $message=mysqli_real_escape_string($link,$_POST['message']);
-  $username=mysqli_real_escape_string($link,$_SESSION["uid"]);
+  $message=mysqli_real_escape_string($conn,$_POST['message']);
+  $username=mysqli_real_escape_string($conn,$_SESSION["uid"]);
 
   $sql="INSERT INTO messages(message,username)
         VALUES('$message','$username')";
 
-  $result=mysqli_query($link,$sql);
+  $result=mysqli_query($conn,$sql);
 
   // sql to delete a record
   //$sql_del = "DELETE FROM messages(message,username);
 
   /*close connection*/
-  mysqli_close($link);
+  mysqli_close($conn);
 
 }
 
