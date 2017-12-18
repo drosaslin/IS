@@ -32,10 +32,10 @@ if(isset($_SESSION['uid']))
 {
   echo'
 <FRAMESET cols="200,*">
-  <FRAME class ="side-bar" src="SideBar.php">
+  <FRAME noresize="noresize" class ="side-bar" src="SideBar.php">
   <FRAMESET rows="*,200">
-    <FRAME src="Messages.php">
-    <FRAME src="NewMessages.php">
+    <FRAME  noresize="noresize" src="Messages.php">
+    <FRAME  noresize="noresize" src="NewMessages.php">
   </FRAMESET>
 </FRAMESET>
 </html>';
