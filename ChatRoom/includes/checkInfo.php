@@ -1,7 +1,7 @@
 <?php
   include_once ("dbms.php");
 
-  if(isset($_POST["submit"]) && !empty($_POST["uid"]) && !empty($_POST["pwd"]))
+  if(isset($_POST["uid"]) && isset($_POST["pwd"]))
   {
     $sql = "SELECT * FROM users;";
     $result = mysqli_query($conn, $sql);
@@ -61,6 +61,7 @@
             html{
               margin: auto;
             }
+
 
             p{
               font-family: helvetica;
