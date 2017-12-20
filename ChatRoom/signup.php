@@ -1,6 +1,20 @@
 <!DOCTYPE html>
-<html>
+<?php
+/*
+if (!(isset($_SERVER['HTTPS']) && ($_SERVER['HTTPS'] == 'on' ||
+   $_SERVER['HTTPS'] == 1) ||
+   isset($_SERVER['HTTP_X_FORWARDED_PROTO']) &&
+   $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https'))
+{
+   $redirect = 'https://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+   header('HTTP/1.1 301 Moved Permanently');
+   header('Location: ' . $redirect);
+   exit();
+}
+*/
+?>
 
+<html>
   <head>
     <title>SignUp</title>
     <meta charset="UTF-16"/>
@@ -62,6 +76,14 @@
               margin: 20px auto;
             }
 
+            a:link, a:visited{
+              color:#74B496;
+              font-weight: bold;
+              text-decoration: underline;
+              font-family: helvetica;
+              font-size: 13px;
+            }
+
           </style>
           <script src='https://www.google.com/recaptcha/api.js'></script>
   </head>
@@ -76,10 +98,11 @@
         <input type="text" name="uid" placeholder="Username"><br>
         <input type="password" class = "pwd" name="pwd" id="pwd" placeholder="Password"><br>
         <progress max="100" value="0" id="strength" style="width: 160px; height: 10px"></progress><br>
-        <div class="g-recaptcha" data-sitekey="6LfXUD0UAAAAAPW6lAXFnn-owca962PSDrBnRsAA" style="transform:scale(0.60);"></div>
+        <div class="g-recaptcha" data-sitekey="6LfXUD0UAAAAAPW6lAXFnn-owca962PSDrBnRsAA" style="transform:scale(0.70);"></div>
         <button type="submit" name="submit">Submit</button>
       </form>
     </center>
+    <a href="../index.php">Go back</a>
   </body>
 
   <script type="text/javascript">

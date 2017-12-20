@@ -1,35 +1,42 @@
 <?php
   include_once ("dbms.php");
+  include_once ("loginFunctions.php");
 
-  if(isset($_POST["submit"]) && !empty($_POST["uid"]) && !empty($_POST["pwd"]))
+  if(isset($_POST["submit"]) && isset($_POST['g-recaptcha-response']) && $_POST['g-recaptcha-response'] && !empty($_POST["uid"]) && !empty($_POST["pwd"]))
   {
     $sql = "SELECT * FROM users;";
     $result = mysqli_query($conn, $sql);
-    $check = mysqli_num_rows($result);
-    $uid = $_POST["uid"];
+    $uid = mysqli_real_escape_string($conn, $_POST['uid']);
     $pass = md5($_POST["pwd"]);
     $flag = false;
 
-    if($check > 0)
+    while($row = mysqli_fetch_assoc($result))
     {
-      while($row = mysqli_fetch_assoc($result))
+      if($row['user_uid'] == $uid && $row['user_pwd'] == $pass)
       {
-        //echo $row['user_uid'] . "<br>";
-        if($row['user_uid'] == $uid && $row['user_pwd'] == $pass && isset($_POST['g-recaptcha-response'])&& $_POST['g-recaptcha-response'])
+        updateFails($uid, $conn);
+        if(userBlocked($uid, $conn) == 1)
         {
-          session_start();
-          $secret = "6LfXUD0UAAAAAGJcwCp_pmSCG8RyPz6bruv-M-7u";
-          $ip = $_SERVER['REMOTE_ADDR'];
-          $_SESSION["uid"] = $_POST["uid"];
-          $captcha = $_POST['g-recaptcha-response'];
-          $rsp = file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=$secret&response=$captcha&remoteip=$ip");
-
-          header("location: ../ChatRoom.php");
-          $flag = true;
+           canUnblock($uid, $conn);
+           break;
         }
-        if($flag == true) break;
+
+        session_start();
+        setSessionVariables($secret, $ip, $captcha, $rsp, $uid);
+        header("location: ../ChatRoom.php");
+        break;
+      }
+      else if($row['user_uid'] == $uid && $row['user_pwd'] != $pass)
+      {
+        updateFails($uid, $conn);
+        if(userBlocked($uid, $conn) == 1)
+          echo "User blocked. Please try again later.";
+
+        checkFailedLogins($uid, $conn);
+        break;
       }
     }
+
     if($flag == false)
       echo "<p style='color: #E196A2;
       font-size: 30px;
@@ -37,6 +44,7 @@
       font-weight: bold;
       margin: 20px;'> Connection unsuccessful :(</p>";
   }
+
   else
     echo "<p style='color: #E196A2;
     font-size: 30px;
