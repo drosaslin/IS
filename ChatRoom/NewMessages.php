@@ -20,23 +20,6 @@ if(isset($_POST['message']))
      mysqli_close($conn);
 }
 
-/*if(isset($_POST['upload']))
-{
-    $image = $_POST['image'];
-    $file_name=uniqid().date("Y-m-d-H-i-s").md5($_FILES['$image']['name']);
-
-    $destination="images/".$file_name;
-    $filename=$_FILES['image']['tmp_name'];
-    $username=mysqli_real_escape_string($conn,$_SESSION["uid"]);
-
-    if(move_uploaded_file($filename,$destination))
-    {
-        $sql="INSERT INTO messages (username, image) VALUES ('$username', '$destination')";
-        mysqli_query($conn,$sql);
-        mysqli_close($conn);
-    }
-}*/
-
 echo '<html><head>
 <style type="text/css">
   html{

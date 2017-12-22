@@ -7,12 +7,12 @@
     $sql = "SELECT * FROM users;";
     $result = mysqli_query($conn, $sql);
     $uid = mysqli_real_escape_string($conn, $_POST['uid']);
-    $pass = md5($_POST["pwd"]);
+    $pass = mysqli_real_escape_string($conn, $_POST["pwd"]);
     $flag = false;
 
     while($row = mysqli_fetch_assoc($result))
     {
-      if($row['user_uid'] == $uid && $row['user_pwd'] == $pass)
+      if($row['user_uid'] == $uid && password_verify($pass, $row['user_pwd']))
       {
         if(userBlocked($uid, $conn) == 1)
            if(canUnblock($uid, $conn) == 0) break;
@@ -23,7 +23,7 @@
         setSessionVariables($secret, $ip, $captcha, $rsp, $uid);
         header("location: ../ChatRoom.php");
       }
-      else if($row['user_uid'] == $uid && $row['user_pwd'] != $pass)
+      else if($row['user_uid'] == $uid && !password_verify($pass, $row['user_pwd']))
       {
         updateFails($uid, $conn);
         if(userBlocked($uid, $conn) == 1)
