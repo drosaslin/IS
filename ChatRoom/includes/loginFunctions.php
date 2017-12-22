@@ -15,7 +15,7 @@ function checkFailedLogins($uid, $conn)
       if(timeDifference(time(), strtotime($row['login_time'])) < 10)
         $fails++;
 
-      if($fails == 5)
+      if($fails == 4)
       {
         blockUser($uid, $conn);
         echo "Failed to type the correct password 5 times. You won't be able to acces your account for 30 minutes.";
@@ -80,18 +80,19 @@ function canUnblock($uid, $conn)
   $row = mysqli_fetch_assoc($result);
   $timeElapsed = timeDifference(time(), strtotime($row['date_blocked']));
 
-  if($timeElapsed > 5)
+  if($timeElapsed > 2)
   {
     $sql = "UPDATE users
             SET user_block = 0, date_blocked = 'NULL'
             WHERE user_uid = '$uid'";
 
     mysqli_query($conn, $sql);
-    echo "User unblocked. You can now access the chatroom.";
-    return;
+    clearFails($uid, $conn);
+    return 1;
   }
 
   echo "User blocked. Please try again later.";
+  return 0;
 }
 
 function updateFails($uid, $conn)
@@ -99,7 +100,15 @@ function updateFails($uid, $conn)
   $currTime = date("Y-m-d H:i:s", time());
 
   $sql = "DELETE FROM login_fail
-          WHERE username = '$uid' AND TIMESTAMPDIFF(MINUTE, login_time, '$currTime') > 15";
+          WHERE username = '$uid' AND TIMESTAMPDIFF(MINUTE, login_time, '$currTime') > 10";
+
+  mysqli_query($conn, $sql);
+}
+
+function clearFails($uid, $conn)
+{
+  $sql = "DELETE FROM login_fail
+          WHERE username = '$uid'";
 
   mysqli_query($conn, $sql);
 }

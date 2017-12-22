@@ -14,17 +14,14 @@
     {
       if($row['user_uid'] == $uid && $row['user_pwd'] == $pass)
       {
-        updateFails($uid, $conn);
         if(userBlocked($uid, $conn) == 1)
-        {
-           canUnblock($uid, $conn);
-           break;
-        }
+           if(canUnblock($uid, $conn) == 0) break;
+
+        clearFails($uid, $conn);
 
         session_start();
         setSessionVariables($secret, $ip, $captcha, $rsp, $uid);
         header("location: ../ChatRoom.php");
-        break;
       }
       else if($row['user_uid'] == $uid && $row['user_pwd'] != $pass)
       {

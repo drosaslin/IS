@@ -1,8 +1,7 @@
 <?php
   include_once ("dbms.php");
 
-  if(isset($_POST['submit']) && !empty($_POST['first']) && !empty($_POST['last']) &&
-  !empty($_POST['email']) && !empty($_POST['uid']) && !empty($_POST['pwd']) && isset($_POST['g-recaptcha-response'])&& $_POST['g-recaptcha-response'])
+  if(isset($_POST['submit']) && !empty($_POST['first']) && !empty($_POST['last']) && !empty($_POST['email']) && !empty($_POST['uid']) && !empty($_POST['pwd']))
   {
     $first = mysqli_real_escape_string($conn, $_POST['first']);
     $last = mysqli_real_escape_string($conn, $_POST['last']);
@@ -16,11 +15,8 @@
     mysqli_query($conn, $sql);
     header("location: ../../index.php?signup=success");
   }
-  else{
-    $message = "Sign up error. Check if all the fields are filled and the captcha is solved.";
-    echo "<script type='text/javascript'>
-            alert('$message')
-            location='../signup.php?signup=unsuccessful'</script>";
-  }
+  else
+    header("location: ../signup.php?signup=unsuccessful");
+
   mysqli_close($conn);
  ?>

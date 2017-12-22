@@ -1,29 +1,41 @@
 <?php
 session_start();
-if(ISSET($_POST['message']))
+if(isset($_POST['message']))
 {
-  //connect to database
-  include_once ("includes/dbms.php");
+     //connect to database
+     include_once ("includes/dbms.php");
 
-  /*$link = mysql_connect('localhost', 'IMuser', 'IMuser');*/
-  if (!$conn) { die('Could not connect: ' . mysql_error()); }
-  else {/*echo 'AAA';*/}
+     /*$link = mysql_connect('localhost', 'IMuser', 'IMuser');*/
+     if (!$conn) { die('Could not connect: ' . mysql_error()); }
+     else {/*echo 'AAA';*/}
 
-  $message=mysqli_real_escape_string($conn,$_POST['message']);
-  $username=mysqli_real_escape_string($conn,$_SESSION["uid"]);
+     $message=mysqli_real_escape_string($conn,$_POST['message']);
+     $username=mysqli_real_escape_string($conn,$_SESSION["uid"]);
 
-  $sql="INSERT INTO messages(message,username)
-        VALUES('$message','$username')";
+     $sql="INSERT INTO messages(message,username)
+            VALUES('$message','$username')";
+      $result=mysqli_query($conn,$sql);
 
-  $result=mysqli_query($conn,$sql);
-
-  // sql to delete a record
-  //$sql_del = "DELETE FROM messages(message,username);
-
-  /*close connection*/
-  mysqli_close($conn);
-
+     /*close connection*/
+     mysqli_close($conn);
 }
+
+/*if(isset($_POST['upload']))
+{
+    $image = $_POST['image'];
+    $file_name=uniqid().date("Y-m-d-H-i-s").md5($_FILES['$image']['name']);
+
+    $destination="images/".$file_name;
+    $filename=$_FILES['image']['tmp_name'];
+    $username=mysqli_real_escape_string($conn,$_SESSION["uid"]);
+
+    if(move_uploaded_file($filename,$destination))
+    {
+        $sql="INSERT INTO messages (username, image) VALUES ('$username', '$destination')";
+        mysqli_query($conn,$sql);
+        mysqli_close($conn);
+    }
+}*/
 
 echo '<html><head>
 <style type="text/css">
@@ -42,7 +54,7 @@ echo '<html><head>
     font-size: 15px;
     padding: 11px 15px;
     border: none;
-    float: right;
+    float: left;
     width: 150px;
   }
 
@@ -60,7 +72,7 @@ echo '<html><head>
     margin:0;
   }
 
-  input{
+  .msg{
     margin: 10px 5px 10px 5px;
     width: 98%;
     height: 60%;
@@ -72,12 +84,24 @@ echo '<html><head>
     outline:none;
   }
 
+  .img::focus{
+      outline:none;
+  }
+
+  input{
+      float:right;
+  }
+
 </style>
 </head><body>
 <form action="NewMessages.php" method="POST">
-<input type="text"autocomplete="off" name="message"/>
+<input class="msg" type="text"autocomplete="off" name="message"/>
 <button type="reset" value="Reset"/>Reset</button>
 <button type="submit" value="Send"/>Send</button>
+</form>
+<form action="upload.php" method="POST" enctype="multipart/form-data">
+    <input type="file" name="image">
+    <button type="submit" name="upload">Upload Picture</button>
 </form>
 </body></html>';
 ?>
