@@ -18,8 +18,10 @@ function checkFailedLogins($uid, $conn)
       if($fails == 4)
       {
         blockUser($uid, $conn);
-        echo "Failed to type the correct password 5 times. You won't be able to acces your account for 30 minutes.";
-        return;
+        $alert = "Failed to type the correct password 5 times. You won't be able to acces your account for 30 minutes.";
+        echo "<script type='text/javascript'>
+                alert('$alert')
+                location='../../index.php?login=unsuccessful'</script>";
       }
     }
   }

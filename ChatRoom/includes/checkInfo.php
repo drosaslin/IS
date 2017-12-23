@@ -9,6 +9,10 @@
     $uid = mysqli_real_escape_string($conn, $_POST['uid']);
     $pass = mysqli_real_escape_string($conn, $_POST["pwd"]);
     $flag = false;
+    $secret = '6LfXUD0UAAAAAGJcwCp_pmSCG8RyPz6bruv-M-7u';
+    $response = $_POST['g-recaptcha-response'];
+    $remoteip = $_SERVER['REMOTE_ADDR'];
+    $url = file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=$secret&response=$response&remoteip=$remoteip");
 
     while($row = mysqli_fetch_assoc($result))
     {
@@ -27,7 +31,12 @@
       {
         updateFails($uid, $conn);
         if(userBlocked($uid, $conn) == 1)
-          echo "User blocked. Please try again later.";
+        {
+          $blocked = "User blocked. Please try again later.";
+          echo "<script type='text/javascript'>
+                  alert('$blocked')
+                  location='../../index.php?login=unsuccessful'</script>";
+        }
 
         checkFailedLogins($uid, $conn);
         break;
@@ -35,19 +44,17 @@
     }
 
     if($flag == false)
-      echo "<p style='color: #E196A2;
-      font-size: 30px;
-      font-family: Helvetica;
-      font-weight: bold;
-      margin: 20px;'> Connection unsuccessful :(</p>";
+    {$message = "Connection unsuccessful!";
+    echo "<script type='text/javascript'>
+            alert('$message')
+            location='../../index.php?login=unsuccessful'</script>";}
   }
 
   else
-    echo "<p style='color: #E196A2;
-    font-size: 30px;
-    font-family: Helvetica;
-    font-weight: bold;
-    margin: 20px;'> Information not provided!</p>";
+    {$message = "Sign in error. Check if all the fields are filled and the captcha is solved.";
+    echo "<script type='text/javascript'>
+            alert('$message')
+            location='../../index.php?login=unsuccessful'</script>";}
 
     mysqli_close($conn);
 ?>
