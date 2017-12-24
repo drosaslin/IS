@@ -8,21 +8,15 @@ function checkFailedLogins($uid, $conn)
   $check = mysqli_num_rows($result);
   $fails = 0;
 
-  if($check >= 5)
+  if($check >= 4)
   {
     while($row = mysqli_fetch_assoc($result))
     {
       if(timeDifference(time(), strtotime($row['login_time'])) < 10)
         $fails++;
 
-      if($fails == 4)
-      {
+      if($fails >= 4)
         blockUser($uid, $conn);
-        $alert = "Failed to type the correct password 5 times. You won't be able to acces your account for 30 minutes.";
-        echo "<script type='text/javascript'>
-                alert('$alert')
-                location='../../index.php?login=unsuccessful'</script>";
-      }
     }
   }
 
@@ -49,6 +43,11 @@ function blockUser($uid, $conn)
           WHERE user_uid = '$uid'";
 
   mysqli_query($conn, $sql);
+
+  $alert = "Failed to type the correct password 5 times. You won't be able to acces your account for 30 minutes.";
+  echo "<script type='text/javascript'>
+        alert('$alert')
+        location='../../index.php?login=unsuccessful'</script>";
 }
 
 function userBlocked($uid, $conn)
@@ -82,7 +81,7 @@ function canUnblock($uid, $conn)
   $row = mysqli_fetch_assoc($result);
   $timeElapsed = timeDifference(time(), strtotime($row['date_blocked']));
 
-  if($timeElapsed > 2)
+  if($timeElapsed > 30)
   {
     $sql = "UPDATE users
             SET user_block = 0, date_blocked = 'NULL'
