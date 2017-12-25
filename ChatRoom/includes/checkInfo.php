@@ -2,7 +2,8 @@
   include_once ("dbms.php");
   include_once ("loginFunctions.php");
 
-  if(isset($_POST["submit"]) && isset($_POST['g-recaptcha-response']) && $_POST['g-recaptcha-response'] && !empty($_POST["uid"]) && !empty($_POST["pwd"]))
+  if(isset($_POST["submit"]) && isset($_POST['g-recaptcha-response']) && $_POST['g-recaptcha-response']
+  && !empty($_POST["uid"]) && !empty($_POST["pwd"]))
   {
     $sql = "SELECT * FROM users;";
     $result = mysqli_query($conn, $sql);

@@ -98,7 +98,6 @@
 
     function checkPassword(pwd)
     {
-      //alert("I've been called");
       var strengthBar = document.getElementById("strength");
       var strength = 0;
 
